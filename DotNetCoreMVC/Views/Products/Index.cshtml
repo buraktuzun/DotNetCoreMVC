@@ -5,13 +5,23 @@
 
 <h1>Products</h1>
 
-<table border="1" style="width: 100%; border-collapse: collapse; text-align: left;">
+@if(TempData["Message"] != null)
+{
+    <div class="alert alert-success" role="alert">
+        @TempData["Message"]
+    </div>
+}
+
+<a asp-controller="Products" asp-action="Add">Ürün Ekle</a>
+
+<table border="3" style="width: 100%; border-collapse: separate; text-align: left;">
     <thead>
         <tr>
             <th>Id</th>
             <th>Name</th>
             <th>Price</th>
             <th>Stock</th>
+            <th>Color</th>
             <th>Actions</th>
         </tr>
     </thead>
@@ -23,9 +33,10 @@
                 <td>@product.Name</td>
                 <td>@product.Price</td>
                 <td>@product.Stock</td>
+                <td>@product.Color</td>
                 <td>
                     <a asp-controller="Products" asp-action="Remove" asp-route-id="@product.Id">Delete</a>
-                    <a>Update</a>
+                    <a asp-controller="Products" asp-action="Update" asp-route-id="@product.Id">Update</a>
                 </td>
             </tr>
         }

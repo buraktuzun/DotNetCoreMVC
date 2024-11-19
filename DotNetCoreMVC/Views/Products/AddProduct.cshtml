@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "AddProduct";
+}
+@model Product
+<h1>Ürün Ekleme</h1>
+
+
+<form asp-controller="Products" asp-action="AddProduct" method="post">
+
+    <label>Ürün Adı: </label>
+    <input type="text" asp-for="Name" />
+    <br />
+    <label>Ürün Fiyatı: </label>
+    <input type="text" asp-for="Price" />
+    <br />
+    <label>Ürün Stok: </label>
+    <input type="text" asp-for="Stock" />
+    <br />
+    <label>Ürün Rengi: </label>
+    <input type="text" asp-for="Color" />
+
+    <button type="submit">Kaydet</button>
+
+
+</form>

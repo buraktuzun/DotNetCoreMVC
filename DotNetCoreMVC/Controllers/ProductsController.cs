@@ -1,4 +1,5 @@
-﻿using DotNetCoreMVC.Models;
+﻿using DotNetCoreMVC.Helpers;
+using DotNetCoreMVC.Models;
 using Microsoft.AspNetCore.Mvc;
 
 namespace DotNetCoreMVC.Controllers
@@ -6,22 +7,12 @@ namespace DotNetCoreMVC.Controllers
     public class ProductsController : Controller
     {
         private AppDbContext _context;
+        private IHelper _helper;
 
-        public ProductsController(AppDbContext context)
+        public ProductsController(AppDbContext context, IHelper helper)
         {
             _context = context;
-
-            if(!_context.Products.Any())
-            {
-                _context.Products.Add(new Product { Name = "Product 1", Price = 100, Stock = 10 });
-                _context.Products.Add(new Product { Name = "Product 2", Price = 200, Stock = 20 });
-                _context.Products.Add(new Product { Name = "Product 3", Price = 300, Stock = 30 });
-                _context.Products.Add(new Product { Name = "Product 4", Price = 400, Stock = 40 });
-
-                _context.SaveChanges();
-            }
-
-            
+            _helper = helper;
         }
         public IActionResult Index()
         {
@@ -38,6 +29,45 @@ namespace DotNetCoreMVC.Controllers
             _context.SaveChanges();
 
             return RedirectToAction("Index");
+        }
+
+        public IActionResult Add()
+        {
+            return View("AddProduct");
+        }
+
+        [HttpPost]
+        public IActionResult AddProduct(Product product) 
+        { 
+            //var name = HttpContext.Request.Form["Name"].ToString();
+            //var price = decimal.Parse(HttpContext.Request.Form["Price"].ToString());
+            //var stock = int.Parse(HttpContext.Request.Form["Stock"].ToString());
+            //var color = HttpContext.Request.Form["Color"].ToString();
+
+            //_context.Products.Add(new Product {Name = name, Price = price, Stock = stock, Color = color });
+            _context.Products.Add(product);
+            _context.SaveChanges();
+
+            TempData["Message"] = "Product added successfully";
+
+            return RedirectToAction("Index");
+        }
+
+        public IActionResult Update(Product updatedProduct)
+        {
+            _context.Products.Update(updatedProduct);
+            _context.SaveChanges();
+
+            TempData["Message"] = "Product updated successfully";
+
+            return RedirectToAction("Index");
+        }
+
+        [HttpGet]
+        public IActionResult Update(int Id)
+        {
+            var product = _context.Products.Find(Id);
+            return View(product);
         }
     }
 }

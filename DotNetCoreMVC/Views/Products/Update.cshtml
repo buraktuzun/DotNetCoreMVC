@@ -1,5 +1,4 @@
-﻿
-@{
+﻿@{
     ViewData["Title"] = "Update";
 }
 @model Product
@@ -9,19 +8,24 @@
 
     <input type="hidden" asp-for="Id" />
 
-    <label>Ürün Adı: </label>
-    <input type="text" asp-for="Name" />
-    <br />
-    <label>Ürün Fiyatı: </label>
-    <input type="text" asp-for="Price" />
-    <br />
-    <label>Ürün Stok: </label>
-    <input type="text" asp-for="Stock" />
-    <br />
-    <label>Ürün Rengi: </label>
-    <input type="text" asp-for="Color" />
 
-    <button type="submit">Güncelle</button>
+    <div class="mb-3">
+        <label for="Name" class="form-label">Ürün İsmi</label>
+        <input class="form-control" asp-for="Name">
+    </div>
+    <div class="mb-3">
+        <label for="Price" class="form-label">Ürün Fiyatı</label>
+        <input class="form-control" asp-for="Price">
+    </div>
+    <div class="mb-3">
+        <label for="Stock" class="form-label">Ürün Stok</label>
+        <input class="form-control" asp-for="Stock">
+    </div>
+    <div class="mb-3">
+        <label for="Color" class="form-label">Ürün Rengi</label>
+        <input class="form-control" asp-for="Color">
+    </div>
+    <button type="submit" class="btn btn-primary">Güncelle</button>
 
 
 </form>

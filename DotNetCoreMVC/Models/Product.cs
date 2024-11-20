@@ -9,5 +9,7 @@
         public string? Color { get; set; }
         public int? Width { get; set; }
         public int? Height { get; set; }
+        public bool isPublish { get; set; }
+        public string Expire { get; set; }
     }
 }

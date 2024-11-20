@@ -33,18 +33,14 @@ namespace DotNetCoreMVC.Controllers
 
         public IActionResult Add()
         {
+            ViewBag.Expire = new List<string>() { "1 Ay", "2 Ay", "3 Ay", "6 Ay", "1 Yıl" };
+
             return View("AddProduct");
         }
 
         [HttpPost]
         public IActionResult AddProduct(Product product) 
         { 
-            //var name = HttpContext.Request.Form["Name"].ToString();
-            //var price = decimal.Parse(HttpContext.Request.Form["Price"].ToString());
-            //var stock = int.Parse(HttpContext.Request.Form["Stock"].ToString());
-            //var color = HttpContext.Request.Form["Color"].ToString();
-
-            //_context.Products.Add(new Product {Name = name, Price = price, Stock = stock, Color = color });
             _context.Products.Add(product);
             _context.SaveChanges();
 

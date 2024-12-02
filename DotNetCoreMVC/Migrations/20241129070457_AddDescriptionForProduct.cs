@@ -5,13 +5,13 @@
 namespace DotNetCoreMVC.Migrations
 {
     /// <inheritdoc />
-    public partial class AddExpireDayForProduct : Migration
+    public partial class AddDescriptionForProduct : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.AddColumn<string>(
-                name: "Expire",
+                name: "Description",
                 table: "Products",
                 type: "nvarchar(max)",
                 nullable: false,
@@ -22,7 +22,7 @@ namespace DotNetCoreMVC.Migrations
         protected override void Down(MigrationBuilder migrationBuilder)
         {
             migrationBuilder.DropColumn(
-                name: "Expire",
+                name: "Description",
                 table: "Products");
         }
     }

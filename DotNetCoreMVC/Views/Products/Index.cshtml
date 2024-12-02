@@ -1,6 +1,7 @@
 ﻿@model List<Product>
 @{
     ViewData["Title"] = "Product";
+    int i = 0;
 }
 
 <h1>Products</h1>
@@ -14,15 +15,18 @@
 
 <a asp-controller="Products" asp-action="Add">Ürün Ekle</a>
 
-<table border="3" style="width: 100%; border-collapse: separate; text-align: left;">
-    <thead>
+<table class="mt-3" style="width: 100%; text-align: left;">
+    <thead style="border-bottom: 2px solid black;">
         <tr>
             <th>Id</th>
             <th>Name</th>
             <th>Price</th>
             <th>Stock</th>
             <th>Color</th>
-            <th>Actions</th>
+            <th>Is Publish?</th>
+            <th>Expire Time</th>
+            <th>Description</th>
+            <th></th>
         </tr>
     </thead>
     <tbody>
@@ -34,11 +38,29 @@
                 <td>@product.Price</td>
                 <td>@product.Stock</td>
                 <td>@product.Color</td>
+                <td>@product.isPublish</td>
+                <td>@product.Expire</td>
+                <td>@if (product.Description.Length > 20)
+                    {
+                        @product.Description.Substring(0, 20) <text>...</text>
+                    }
+                    else
+                    {
+                        @product.Description
+
+                    }
+                </td>
                 <td>
                     <a asp-controller="Products" asp-action="Remove" asp-route-id="@product.Id">Delete</a>
                     <a asp-controller="Products" asp-action="Update" asp-route-id="@product.Id">Update</a>
                 </td>
             </tr>
+            @if (i < Model.Count - 1) // Son satır hariç separator ekle
+            {
+                <tr style="height: 1px; background-color: lightgray;">
+                    <td colspan="8"></td>
+                </tr>
+            }
         }
     </tbody>
 </table>

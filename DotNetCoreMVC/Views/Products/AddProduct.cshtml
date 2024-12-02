@@ -8,39 +8,55 @@
 <form asp-controller="Products" asp-action="AddProduct" method="post">
 
     <div class="mb-3">
-        <label for="Name" class="form-label">Ürün İsmi</label>
+        <label asp-for="Name" class="form-label">Ürün İsmi</label>
         <input class="form-control" asp-for="Name">
     </div>
     <div class="mb-3">
-        <label for="Price" class="form-label">Ürün Fiyatı</label>
+        <label asp-for="Price" class="form-label">Ürün Fiyatı</label>
         <input class="form-control" asp-for="Price">
     </div>
     <div class="mb-3">
-        <label for="Stock" class="form-label">Ürün Stok</label>
+        <label asp-for="Stock" class="form-label">Ürün Stok</label>
         <input class="form-control" asp-for="Stock">
     </div>
     <div class="mb-3">
-        <label for="Color" class="form-label">Ürün Rengi</label>
-        <input class="form-control" asp-for="Color">
+        @* <label asp-for="Color" class="form-label">Ürün Rengi</label>
+        <input class="form-control" asp-for="Color"> *@
+        <option value="">Renk Seçiniz</option>
+
+        <select class="form-select" asp-for="Color" asp-items="@ViewBag.ColorSelect"></select>
     </div>
     <div class="form-check">
         <input class="form-check-input" asp-for="isPublish">
-        <label class="form-check-label" for="flexCheckDefault">
+        <label class="form-check-label" asp-for="isPublish">
             Yayınlansın mı?
         </label>
     </div>
 
-    @foreach (var item in ViewBag.Expire)
+    <div class="mb-3 mt-2">
+    @foreach (var item in ViewBag.Expire as List<int>)
     {
         <div class="form-check">
-            <input class="form-check-input" type="radio" asp-for="Expire" value="@item">
-            <label class="form-check-label" for="flexRadioDefault1">
+            <input class="form-check-input" type="radio" id="@item" asp-for="Expire" value="@item">
+            <label class="form-check-label" asp-for="Expire" for="@item">
                 @item
             </label>
         </div>
     }
+    </div>
 
-    <button type="submit" class="btn btn-primary">Güncelle</button>
+    <div class="form-floating mb-3">
+        <textarea asp-for="Description" class="form-control" placeholder="Leave a comment here" ></textarea>
+        <label asp-for="Description">Ürün Açıklaması</label>
+    </div>
+
+
+    <div class="mb-3">
+        <label asp-for="PublishDate" class="form-label">Yayın Tarihi</label>
+        <input class="form-control" asp-for="PublishDate">
+    </div>
+
+    <button type="submit" class="btn btn-primary">Ekle</button>
 
 
 </form>

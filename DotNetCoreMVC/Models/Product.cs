@@ -10,6 +10,8 @@
         public int? Width { get; set; }
         public int? Height { get; set; }
         public bool isPublish { get; set; }
-        public string Expire { get; set; }
+        public int Expire { get; set; }
+        public string Description { get; set; }
+        public DateTime? PublishDate { get; set; }
     }
 }

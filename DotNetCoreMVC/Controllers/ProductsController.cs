@@ -1,6 +1,7 @@
 ﻿using DotNetCoreMVC.Helpers;
 using DotNetCoreMVC.Models;
 using Microsoft.AspNetCore.Mvc;
+using Microsoft.AspNetCore.Mvc.Rendering;
 
 namespace DotNetCoreMVC.Controllers
 {
@@ -30,10 +31,21 @@ namespace DotNetCoreMVC.Controllers
 
             return RedirectToAction("Index");
         }
-
+        [HttpGet]
         public IActionResult Add()
         {
-            ViewBag.Expire = new List<string>() { "1 Ay", "2 Ay", "3 Ay", "6 Ay", "1 Yıl" };
+            List<int> Expire = new List<int> { 1, 2, 3, 6, 12};
+            ViewBag.Expire = Expire;
+
+            ViewBag.ColorSelect = new SelectList(new List<ColorSelectList>
+            {
+                new ColorSelectList { Data = "Red", Value = "Red" },
+                new ColorSelectList { Data = "Green", Value = "Green" },
+                new ColorSelectList { Data = "Blue", Value = "Blue" },
+                new ColorSelectList { Data = "Yellow", Value = "Yellow" },
+                new ColorSelectList { Data = "Black", Value = "Black" },
+                new ColorSelectList { Data = "White", Value = "White" },
+            }, "Value", "Data");
 
             return View("AddProduct");
         }
@@ -63,6 +75,23 @@ namespace DotNetCoreMVC.Controllers
         public IActionResult Update(int Id)
         {
             var product = _context.Products.Find(Id);
+
+            List<int> Expire = new List<int> { 1, 2, 3, 6, 12 };
+            ViewBag.Expire = Expire;
+            ViewBag.SelectedExpire = product.Expire;
+
+            ViewBag.ColorSelect = new SelectList(new List<ColorSelectList>
+            {
+                new ColorSelectList { Data = "Red", Value = "Red" },
+                new ColorSelectList { Data = "Green", Value = "Green" },
+                new ColorSelectList { Data = "Blue", Value = "Blue" },
+                new ColorSelectList { Data = "Yellow", Value = "Yellow" },
+                new ColorSelectList { Data = "Black", Value = "Black" },
+                new ColorSelectList { Data = "White", Value = "White" },
+            }, "Value", "Data", product.Color);
+
+
+
             return View(product);
         }
     }
